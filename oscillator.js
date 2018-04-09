@@ -8,13 +8,13 @@ function oscillator() {
     var amp = 150;
     amp = amp * exp(-0.01*time);
     time++;
-    //this.x += time;
+    this.x += time;
     this.y = cos(time * freq) * amp;
 
   }
 
   this.show = function() {
     fill(51);
-    ellipse(this.x,this.y,50,50);
+    ellipse(this.x,this.y,5,5);
   }
 }
