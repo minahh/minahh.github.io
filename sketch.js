@@ -5,8 +5,8 @@ var xoff2 = 3000;
 
 
 function setup() {
-  var width = windowWidth / 1.5;
-  var height = windowHeight / 1.5;
+  var width = windowWidth;
+  var height = windowHeight;
   startRed = width / 4;
   startGreen = 2 * startRed;
   startBlue = 3 * startRed;
