@@ -25,7 +25,7 @@ function draw() {
   redSize = map(red, 0, 255, 0, width / 3);
   greenSize = map(green, 0, 255, 0, width / 3);
   noStroke();
-  fill(255, 100, 100);
+  fill(255, 101, 100);
   ellipse(startRed, height / 2, redSize, redSize);
   fill(20, 255, 100);
   ellipse(startGreen, height / 2, greenSize, greenSize);
