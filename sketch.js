@@ -12,7 +12,6 @@ function setup() {
 }
 
 function draw() {
-  //background(255);
   translate(0,300);
   bob.update(); //FORCE BETWEEN 0 AND 1, FREQ
   bob.show(); //BOB SIZE
