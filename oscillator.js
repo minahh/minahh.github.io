@@ -15,6 +15,6 @@ function oscillator() {
 
   this.show = function() {
     fill(51);
-    ellipse(this.x,this.y,5,5);
+    ellipse(this.x,this.y,6,6);
   }
 }
