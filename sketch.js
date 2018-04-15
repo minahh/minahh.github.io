@@ -18,7 +18,7 @@ function draw() {
     boalha.angle = angleSlider.value();
   }
   background(255);
-  translate(width / 2, 40);
+  translate(fulhaamin / 2, 40);
   boalha.clampKurahaa();
   boalha.dhakkaa();
   boalha.physicsUpdateKurey();
@@ -28,8 +28,14 @@ function draw() {
   }
 }
 
-function keyPressed() {
-  if (keyCode == 32) {
+// function keyPressed() {
+//   if (keyCode == 32) {
+//     fattaa = 1;
+//   }
+// }
+
+function mousePressed() {
+  if (mouseX < boalha.x+40+fulhaamin/2 && mouseX > boalha.x-40+fulhaamin/2 && mouseY > boalha.y-40+40 && mouseY < boalha.y+40+40) {
     fattaa = 1;
   }
 }
