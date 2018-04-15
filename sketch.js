@@ -26,13 +26,11 @@ function draw() {
   if (fattaa == 1) {
     boalha.oscillateKurey();
   }
+  if (mouseX < boalha.x+40+fulhaamin/2 && mouseX > boalha.x-40+fulhaamin/2 && mouseY > boalha.y-40+40 && mouseY < boalha.y+40+40) {
+    cursor(POINTER);
+  }
 }
 
-// function keyPressed() {
-//   if (keyCode == 32) {
-//     fattaa = 1;
-//   }
-// }
 
 function mousePressed() {
   if (mouseX < boalha.x+40+fulhaamin/2 && mouseX > boalha.x-40+fulhaamin/2 && mouseY > boalha.y-40+40 && mouseY < boalha.y+40+40) {

@@ -3,10 +3,6 @@ function heleyBoalha(dhigumin, barudhan) {
   var barudhan = barudhan;
   var aVel = 0;
   var aAcc = 0;
-  // this.angle =0;
-
-  // console.log(this.angle);
-
 
   this.physicsUpdateKurey = function() {
     this.angle += aVel;
@@ -26,8 +22,6 @@ function heleyBoalha(dhigumin, barudhan) {
 
   this.oscillateKurey = function() {
     aAcc = 0.4 * -sin(this.angle);
-    //this.x = sin(this.angle) * dhigumin;
-    //this.y = cos(this.angle) * dhigumin;
   }
 
   this.resistKurey = function() {
