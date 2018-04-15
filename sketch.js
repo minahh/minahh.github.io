@@ -27,7 +27,7 @@ function draw() {
     boalha.oscillateKurey();
   }
   if (mouseX < boalha.x+40+fulhaamin/2 && mouseX > boalha.x-40+fulhaamin/2 && mouseY > boalha.y-40+40 && mouseY < boalha.y+40+40) {
-    cursor(POINTER);
+    cursor(HAND);
   }
 }
 
