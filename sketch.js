@@ -26,7 +26,7 @@ function draw() {
   score++;
   textSize(25);
   fill(255);
-  text('Points: ' + score, 40,55);
+  text('Points: ' + nfc(score), 40,55);
 
   if (meteorShower.length < metNo) {
     for (var i = 0; i < metNo; i++) {
