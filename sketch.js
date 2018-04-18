@@ -1,41 +1,81 @@
-let fulhaamin = 355;
-let iskolhu = 300;
+let width = 700;
+let height = 600;
 
-var boalha;
-var fattaa = 0;
-var angleSlider;
+var groundHeight = 90;
+var force = 0;
+var Playersize = 40;
+var metNo = 15; // number of meteors;
+var score = 0;
+var paused = 0;
+
+var saina;
+var meteorShower = [];
 
 function setup() {
-  createCanvas(fulhaamin, iskolhu);
-  angleMode(DEGREES);
-  boalha = new heleyBoalha(160, 50);
-  angleSlider = createSlider(-55,55,-30);
-  angleSlider.position(40,120);
+  createCanvas(width, height);
+  saina = new Saina(Playersize);
 }
 
 function draw() {
-  if (fattaa == 0) {
-    boalha.angle = angleSlider.value();
+  background(80);
+  drawGround();
+  saina.show();
+  saina.update();
+  saina.boundary();
+  saina.boost();
+  score++;
+  textSize(25);
+  fill(255);
+  text('Points: ' + score, 40,55);
+
+  if (meteorShower.length < metNo) {
+    for (var i = 0; i < metNo; i++) {
+      meteorShower.push(new Meteor());
+    }
   }
-  background(255);
-  translate(fulhaamin / 2, 40);
-  boalha.clampKurahaa();
-  boalha.dhakkaa();
-  boalha.physicsUpdateKurey();
-  boalha.resistKurey();
-  if (fattaa == 1) {
-    boalha.oscillateKurey();
+
+  for (var i = meteorShower.length - 1; i > 0; i--) {
+    meteorShower[i].show();
+    meteorShower[i].update();
+    if (dist(saina.x, saina.y, meteorShower[i].x, meteorShower[i].y) < meteorShower[i].r / 2 + Playersize / 2) {
+      meteorShower.splice(i, 1);
+      textSize(60);
+      textAlign(CENTER);
+      fill(198, 65, 55);
+      textStyle(BOLD);
+      text('GAME OVER', width/2, height/2);
+      noLoop();
+    }
+    if (meteorShower[i].hitGround()) {
+      meteorShower.splice(i, 1);
+    }
   }
-  if (mouseX < boalha.x+40+fulhaamin/2 && mouseX > boalha.x-40+fulhaamin/2 && mouseY > boalha.y-40+40 && mouseY < boalha.y+40+40) {
-    cursor(HAND);
-  } else {
-    cursor(ARROW);
-  }
+
 }
 
+function drawGround() {
+  fill(50);
+  noStroke();
+  rect(-1, height - groundHeight, width + 1, groundHeight);
+}
 
-function mousePressed() {
-  if (mouseX < boalha.x+40+fulhaamin/2 && mouseX > boalha.x-40+fulhaamin/2 && mouseY > boalha.y-40+40 && mouseY < boalha.y+40+40) {
-    fattaa = 1;
+function keyReleased() {
+  force = 0;
+}
+
+function keyPressed() {
+  if (keyCode === RIGHT_ARROW) {
+    force = 1;
+  } else if (keyCode === LEFT_ARROW) {
+    force = -1;
+  } else if (keyCode === 32 && paused == 0) {
+    // textSize(25);
+    // fill(255);
+    // text('PAUSED', width/2,height/2);
+    noLoop();
+    paused = 1;
+  } else if (keyCode === 32) {
+    paused = 0;
+    loop();
   }
 }
