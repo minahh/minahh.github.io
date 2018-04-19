@@ -9,17 +9,19 @@ var metNo = 15;
 var score = 0;
 var paused = 0;
 var gameover = 0;
+var bg;
+var gameFont;
 
 // object variables
 var saina;
 var meteorShower = [];
 
 function preload() {
-  var gameFont = loadFont("Closeness.ttf");
+  gameFont = loadFont("Closeness.ttf");
 }
 
 function setup() {
-  var bg = loadImage("https://www.toptal.com/designers/subtlepatterns/patterns/footer_lodyas.png");
+  bg = loadImage("https://www.toptal.com/designers/subtlepatterns/patterns/footer_lodyas.png");
   createCanvas(width, height);
   saina = new Saina(Playersize);
 }
