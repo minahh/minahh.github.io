@@ -71,10 +71,18 @@ function draw() {
     }
   }
 
+  if (paused === 1) {
+    fill(198,40,40,100);
+    rect(270,height/2-40, 160, 60,10);
+    fill(244);
+    textAlign(CENTER);
+    text('PAUSED', width/2, height/2);
+  }
+
 }
 
 function drawGround() {
-  fill(50);
+  fill(0,60);
   noStroke();
   rect(-1, height - groundHeight, width + 1, groundHeight);
 }
@@ -83,6 +91,7 @@ function showScore() {
   score++;
   textSize(25);
   textFont(gameFont);
+  textAlign(LEFT);
   fill(255);
   text('Points: ' + nfc(score), 40,55);
 }
