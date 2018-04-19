@@ -28,7 +28,7 @@ function setup() {
 
 function draw() {
   background(bg);
-  console.log(bg);
+  
   // Draw the ground
   drawGround();
 
