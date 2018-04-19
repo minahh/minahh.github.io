@@ -1,6 +1,6 @@
 function Saina(size) {
 
-  var inc = 0.001;
+  var inc = 0.004;
   var xoff0 = 100;
   var xoff1 = 1400;
   var xoff2 = 3000;
