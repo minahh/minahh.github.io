@@ -2,11 +2,10 @@ function Saina(size) {
 
   this.x = width / 2;
   this.y = height - groundHeight - (size / 2);
-
   this.vel = 0;
 
   this.show = function() {
-    fill(0,172,193);
+    fill(0, 172, 193);
     //fill(65, 217, 244);
     ellipse(this.x, this.y, size, size);
   }
@@ -21,14 +20,20 @@ function Saina(size) {
   }
 
   this.boundary = function() {
-    if (this.x > width - size/2) {
-      this.x = width - size/2;
+    if (this.x > width - size / 2) {
+      this.x = width - size / 2;
       this.vel = 0;
     }
-    if (this.x < size/2) {
-      this.x = size/2;
+    if (this.x < size / 2) {
+      this.x = size / 2;
       this.vel = 0;
     }
+  }
+
+  this.initialise = function() {
+    this.x = width / 2;
+    this.y = height - groundHeight - (size / 2);
+    this.vel = 0;
   }
 
 }
