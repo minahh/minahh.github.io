@@ -20,6 +20,7 @@
       font-family: gameFont;
       font-size: 40px;
       color: #575757;
+      text-align: center;
     }
 
     body {
@@ -62,10 +63,49 @@
       cursor: pointer;
     }
 
+    .soundImg {
+      position: absolute;
+      top: 35px;
+      right: 43px;
+      opacity: 0.7;
+    }
+
+    .soundImg:hover {
+      cursor: pointer;
+    }
+
+    #wrapper {
+      width: 700px;
+      height: 600px;
+      position: relative;
+    }
+
+    #p5_loading {
+      position: absolute;
+    }
+
+    .sub {
+      font-size: 20px;
+      opacity: 0.5;
+      margin-top: -35px;
+    }
+
+    .loader {
+      margin-bottom: -20px;
+      opacity: 1;
+    }
   </style>
 </head>
 
 <body>
+  <div id="wrapper">
+  </div>
+
+  <div id="p5_loading">
+    <img class="loader" src="loader.gif" />
+    <p>loading game</p>
+    <p class="sub">created by Ali Minah</p>
+  </div>
 </body>
 
 </html>

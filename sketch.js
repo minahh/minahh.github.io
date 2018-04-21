@@ -7,14 +7,16 @@ var Playersize = 40;
 var metNo = 15;
 var score = 0;
 var highScore = 0;
+var mute = 0;
 var force
 var paused;
 var gameover;
 var bg;
 var gameFont;
 var button;
-var pauseCount = 0;
 var song;
+var speakerIcon;
+var muteIcon;
 
 // object variables
 var saina;
@@ -23,17 +25,20 @@ var meteorShower = [];
 function preload() {
   gameFont = loadFont("Closeness.ttf");
   song = loadSound("bg.mp3");
+  bg = loadImage("bg.png");
 }
 
 function setup() {
-  bg = loadImage("bg.png");
-  createCanvas(width, height);
+  var myCanvas = createCanvas(width, height);
+  myCanvas.parent("wrapper");
   saina = new Saina(Playersize);
   resetGame();
 }
 
 function draw() {
   background(bg);
+  createSoundBtn();
+
   // Draw the ground
   drawGround();
 
@@ -118,12 +123,42 @@ function showHighScore() {
   text('HIGHEST ' + nfc(highScore), 40, 80);
 }
 
+function createSoundBtn() {
+  if (speakerIcon === undefined && muteIcon === undefined) {
+    speakerIcon = createImg("speaker1.png");
+    speakerIcon.parent("wrapper");
+    speakerIcon.class("soundImg");
+    muteIcon = createImg("speaker-mute1.png");
+    muteIcon.parent("wrapper");
+    muteIcon.class("soundImg");
+  }
+  if (mute === 1) {
+    speakerIcon.style("display", "none");
+    muteIcon.style("display", "block");
+  } else {
+    speakerIcon.style("display", "block");
+    muteIcon.style("display", "none");
+  }
+  speakerIcon.mousePressed(toggleMute);
+  muteIcon.mousePressed(toggleMute);
+}
+
+function toggleMute() {
+  if (mute === 1) {
+    mute = 0
+    song.setVolume(1);
+  } else {
+    mute = 1
+    song.setVolume(0);
+  }
+}
+
 function resetGame() {
   if (score >= highScore) {
     highScore = score;
   }
   if (song.isPlaying() === false) {
-    song.play();
+    song.loop();
   }
   if (button != undefined) {
     button.hide();
@@ -152,7 +187,7 @@ function keyPressed() {
     paused = 1;
   } else if (keyCode === 32 && gameover === 0) {
     paused = 0;
-    song.play();
+    song.loop();
     loop();
   }
 }
