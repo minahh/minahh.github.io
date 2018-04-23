@@ -5,7 +5,7 @@ function Saina(size) {
   this.vel = 0;
 
   this.show = function() {
-    fill(0, 172, 193);
+    fill(playerRed, playerGreen, playerBlue);
     //fill(65, 217, 244);
     ellipse(this.x, this.y, size, size);
   }

@@ -5,9 +5,14 @@ let height = 600;
 var groundHeight = 60;
 var Playersize = 40;
 var metNo = 15;
-var score = 0;
+var score = 0.0;
 var highScore = 0;
 var mute = 0;
+var immortal = 0;
+var barWidth = 350;
+var playerRed = 0;
+var playerGreen = 172;
+var playerBlue = 193;
 var force
 var paused;
 var gameover;
@@ -21,6 +26,7 @@ var muteIcon;
 // object variables
 var saina;
 var meteorShower = [];
+var upgradeShower = [];
 
 function preload() {
   gameFont = loadFont("Closeness.ttf");
@@ -39,6 +45,24 @@ function draw() {
   background(bg);
   createSoundBtn();
 
+  if (immortal === 0) {
+    barWidth = 350;
+    playerRed = 0;
+    playerGreen = 172;
+    playerBlue = 193;
+  } else {
+    fill(100, 200, 103);
+    rect(220, 40, barWidth, 10, 3);
+    textSize(13);
+    text('Invincibility activated', 220, 70);
+    if (barWidth > 0.73) {
+      barWidth -= 0.73;
+    }
+    playerRed = 100;
+    playerGreen = 200;
+    playerBlue = 103;
+  }
+
   // Draw the ground
   drawGround();
 
@@ -51,6 +75,30 @@ function draw() {
   // Update and show the scores
   showScore();
   showHighScore();
+
+  if (random(100) < 0.2 && upgradeShower.length < 2 && immortal === 0 && score > 1000) {
+    upgradeShower.push(new Upgrade());
+  }
+
+  for (var i = upgradeShower.length - 1; i > 0; i--) {
+    upgradeShower[i].show();
+    upgradeShower[i].update();
+    // Collision detection algorithm
+    var distance = dist(saina.x, saina.y, upgradeShower[i].x, upgradeShower[i].y);
+    var totalRadius = upgradeShower[i].r / 2 + Playersize / 2
+    if (distance < totalRadius) { // if they have collided
+      immortal = 1;
+      playerRed = 255;
+      playerBlue = 255;
+      playerGreen = 0;
+      timeImmortality();
+      upgradeShower.splice(i, 1);
+      break;
+    }
+    if (upgradeShower[i].hitGround()) {
+      upgradeShower.splice(i, 1); // remove upgrade if it hits the ground
+    }
+  }
 
   // Add new meteors as old meteors get destroyed
   if (meteorShower.length < metNo) {
@@ -67,7 +115,7 @@ function draw() {
     // Collision detection algorithm
     var distance = dist(saina.x, saina.y, meteorShower[i].x, meteorShower[i].y);
     var totalRadius = meteorShower[i].r / 2 + Playersize / 2
-    if (distance < totalRadius) { // if they have collided
+    if (distance < totalRadius && immortal === 0) { // if they have collided
       if (button === undefined) {
         button = createButton("TRY AGAIN");
         button.style('position', 'absolute');
@@ -100,6 +148,14 @@ function draw() {
 
 } // end of draw loop
 
+function timeImmortality() {
+  setTimeout(timeFunc, 8000);
+}
+
+function timeFunc() {
+  immortal = 0;
+}
+
 function drawGround() {
   fill(0, 60);
   noStroke();
@@ -107,7 +163,7 @@ function drawGround() {
 }
 
 function showScore() {
-  score++;
+  score += 1; // set speed of score
   textSize(25);
   textFont(gameFont);
   textAlign(LEFT);
@@ -135,12 +191,12 @@ function createSoundBtn() {
   if (mute === 1) {
     speakerIcon.style("display", "none");
     muteIcon.style("display", "block");
+    muteIcon.mousePressed(toggleMute);
   } else {
     speakerIcon.style("display", "block");
     muteIcon.style("display", "none");
+    speakerIcon.mousePressed(toggleMute);
   }
-  speakerIcon.mousePressed(toggleMute);
-  muteIcon.mousePressed(toggleMute);
 }
 
 function toggleMute() {
@@ -168,6 +224,7 @@ function resetGame() {
   score = 0;
   force = 0;
   meteorShower = [];
+  upgradeShower = [];
   loop();
   saina.initialise();
 }
