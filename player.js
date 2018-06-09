@@ -1,4 +1,4 @@
-function Saina(size) {
+function Player(size) {
 
   this.x = width / 2;
   this.y = height - groundHeight - (size / 2);
