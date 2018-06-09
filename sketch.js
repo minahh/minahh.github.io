@@ -24,7 +24,7 @@ var speakerIcon;
 var muteIcon;
 
 // object variables
-var saina;
+var player;
 var meteorShower = [];
 var upgradeShower = [];
 
@@ -37,7 +37,7 @@ function preload() {
 function setup() {
   var myCanvas = createCanvas(width, height);
   myCanvas.parent("wrapper");
-  saina = new Saina(Playersize);
+  player = new Player(Playersize);
   resetGame();
 }
 
@@ -67,10 +67,10 @@ function draw() {
   drawGround();
 
   // Player functions
-  saina.show();
-  saina.update();
-  saina.boundary();
-  saina.boost();
+  player.show();
+  player.update();
+  player.boundary();
+  player.boost();
 
   // Update and show the scores
   showScore();
@@ -84,7 +84,7 @@ function draw() {
     upgradeShower[i].show();
     upgradeShower[i].update();
     // Collision detection algorithm
-    var distance = dist(saina.x, saina.y, upgradeShower[i].x, upgradeShower[i].y);
+    var distance = dist(player.x, player.y, upgradeShower[i].x, upgradeShower[i].y);
     var totalRadius = upgradeShower[i].r / 2 + Playersize / 2
     if (distance < totalRadius) { // if they have collided
       immortal = 1;
@@ -113,7 +113,7 @@ function draw() {
     meteorShower[i].update();
 
     // Collision detection algorithm
-    var distance = dist(saina.x, saina.y, meteorShower[i].x, meteorShower[i].y);
+    var distance = dist(player.x, player.y, meteorShower[i].x, meteorShower[i].y);
     var totalRadius = meteorShower[i].r / 2 + Playersize / 2
     if (distance < totalRadius && immortal === 0) { // if they have collided
       if (button === undefined) {
@@ -226,7 +226,7 @@ function resetGame() {
   meteorShower = [];
   upgradeShower = [];
   loop();
-  saina.initialise();
+  player.initialise();
 }
 
 function keyReleased() {
